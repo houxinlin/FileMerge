@@ -37,7 +37,8 @@ class FileUtils {
 
 
         fun String.isExistsInSystem(): Boolean {
-            return File(this).isDirectory
+            var file = File(this)
+            return file.isDirectory || file.isFile
         }
     }
 

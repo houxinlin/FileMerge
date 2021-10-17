@@ -40,6 +40,17 @@ class FileUtils {
             var file = File(this)
             return file.isDirectory || file.isFile
         }
+
+        fun createDirector(filePath: String, subPath: String) {
+            var file = File(filePath, subPath)
+            if (!file.isDirectory) {
+                file.mkdirs()
+            }
+        }
+
+        fun writeBytes(filePath: String, key: String, file: ByteArray) {
+            File(filePath, key).writeBytes(file)
+        }
     }
 
 }

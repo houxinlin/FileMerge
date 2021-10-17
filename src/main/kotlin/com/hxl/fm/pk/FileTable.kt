@@ -89,4 +89,20 @@ class FileTable(var targetDirector: String) {
         }
         return false;
     }
+
+    /**
+     * 解压
+     */
+    fun decompression(filePath: String) {
+        var keys = fileContainer.keys
+        for (key in keys) {
+            var substring = key.substring(0, key.lastIndexOf("/"))
+            if (substring.isNotEmpty()) {
+                println(substring)
+                FileUtils.createDirector(filePath, substring)
+                FileUtils.writeBytes(filePath, key,fileContainer[key]!!.file)
+
+            }
+        }
+    }
 }

@@ -6,6 +6,7 @@ class Main {
 }
 
 fun main() {
+
     var dir = "/home/HouXinLin/project/html/";
     FileTable(dir).generatorForDirector()
     var decode = FileTable(dir).decode()

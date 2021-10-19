@@ -42,28 +42,46 @@ class FileTable(var targetDirector: String) {
     var fileContainer = mutableMapOf<String, FileContainer>();
 
 
+    /**
+     * 生成文件从目录
+     */
     fun generatorForDirector() {
         return GeneratorDirector(targetDirector).generator()
     }
 
+    /**
+     * 解析
+     */
     fun decode(): FileTable? {
         return GeneratorDirector(targetDirector).decode()
     }
 
+    /**
+     * 保存
+     */
     private fun save() {
         GeneratorMap(targetDirector).generator(fileContainer)
     }
 
+    /**
+     * 获取指定文件
+     */
     fun get(name: String): ByteArray? {
         var newName = (name.addPrefix("/"))
         return fileContainer.getOrDefault(newName, null)?.file;
     }
 
+    /**
+     * 列举文件
+     */
     fun listFiles(): MutableSet<String> {
         return fileContainer.keys;
     }
 
 
+    /**
+     * 添加文件
+     */
     fun addFile(filePath: String): Boolean {
         if (filePath.isExistsInSystem()) {
             return addFile(File(filePath))
@@ -72,6 +90,9 @@ class FileTable(var targetDirector: String) {
 
     }
 
+    /**
+     * 添加文件
+     */
     fun addFile(file: File): Boolean {
         if (!fileContainer.containsKey(file.name)) {
             fileContainer[file.name] = FileContainer(file.name, file.readBytes())
@@ -81,6 +102,9 @@ class FileTable(var targetDirector: String) {
         return false;
     }
 
+    /**
+     * 添加文件
+     */
     fun addFile(name: String, data: ByteArray): Boolean {
         if (!fileContainer.containsKey(name)) {
             fileContainer[name] = FileContainer(name, data)
@@ -100,7 +124,7 @@ class FileTable(var targetDirector: String) {
             if (substring.isNotEmpty()) {
                 println(substring)
                 FileUtils.createDirector(filePath, substring)
-                FileUtils.writeBytes(filePath, key,fileContainer[key]!!.file)
+                FileUtils.writeBytes(filePath, key, fileContainer[key]!!.file)
 
             }
         }
